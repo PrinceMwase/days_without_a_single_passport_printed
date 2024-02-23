@@ -51,7 +51,7 @@ export default function Home() {
 
       <div className="mb-32 grid text-lg text-center font-bold w-full">
         {currentDateTime
-          .toLocaleString('en-US', { timeZone: 'Africa/Harare' })
+          .toLocaleString('en-UK',{ timeZone: 'Africa/Harare' })
           .replace(/\//g, ":")
           .split(",")
           .join(" ")}
