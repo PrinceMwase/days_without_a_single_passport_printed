@@ -24,7 +24,7 @@ export default function Home() {
 
     // Update the current date and time every second
     const intervalId = setInterval(() => {
-      if (currentDate.getHours() == 0 && currentDate.getMinutes() == 0) {
+      if (currentDateTime.getHours() == 0 && currentDateTime.getMinutes() == 0) {
         setDaysPassed((old) => old + 1);
       }
 
