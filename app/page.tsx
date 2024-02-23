@@ -4,10 +4,30 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  const [daysPassed, setDaysPassed] = useState(0);
 
   useEffect(() => {
+    // Given date string
+    const dateString = "2023-12-25T13:32:01.878Z";
+
+    // Convert the string to a Date object
+    const givenDate = new Date(dateString);
+
+    // Current date
+    const currentDate = new Date();
+
+    // Calculate the difference in milliseconds
+    const timeDifference: number = currentDate.getTime() - givenDate.getTime();
+
+    // Convert milliseconds to days
+    setDaysPassed(Math.floor(timeDifference / (1000 * 60 * 60 * 24)));
+
     // Update the current date and time every second
     const intervalId = setInterval(() => {
+      if (currentDate.getHours() == 0 && currentDate.getMinutes() == 0) {
+        setDaysPassed((old) => old + 1);
+      }
+
       setCurrentDateTime(new Date());
     }, 1000);
 
@@ -15,29 +35,7 @@ export default function Home() {
     return () => clearInterval(intervalId);
   }, []); // Empty dependency array ensures the effect runs only once on mount
 
-  // Format the date and time
-  const formattedDateTime = currentDateTime
-    .toLocaleString()
-    .replace(/\//g, ":")
-    .split(",")
-    .join(" ");
-
-  // Given date string
-  const dateString = "2023-12-25T13:32:01.878Z";
-
-  // Convert the string to a Date object
-  const givenDate = new Date(dateString);
-
-  // Current date
-  const currentDate = new Date();
-
-  // Calculate the difference in milliseconds
-  const timeDifference: number = currentDate.getTime() - givenDate.getTime();
-
-  // Convert milliseconds to days
-  const daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-  console.log(`Days passed since ${dateString}: ${daysPassed} days`);
+  // Check if the current time has crossed 23:59
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -52,7 +50,11 @@ export default function Home() {
       </div>
 
       <div className="mb-32 grid text-lg text-center font-bold w-full">
-        {formattedDateTime}
+        {currentDateTime
+          .toLocaleString('en-US', { timeZone: 'Africa/Harare' })
+          .replace(/\//g, ":")
+          .split(",")
+          .join(" ")}
       </div>
     </main>
   );
