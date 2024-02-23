@@ -8,7 +8,7 @@ export default function Home() {
 
   useEffect(() => {
     // Given date string
-    const dateString = "2023-12-25T13:32:01.878Z";
+    const dateString = "2023-12-25T00:00:00.001Z";
 
     // Convert the string to a Date object
     const givenDate = new Date(dateString);
